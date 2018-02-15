@@ -1,3 +1,4 @@
+
 ---
 title: Panini
 description: A flat file compiler that powers our prototyping template. Create pages with consistent layouts and reusable partials with ease.
@@ -210,6 +211,7 @@ Now, you can insert the values of these variables into the `index.html` page, *o
 ```handlebars
 <h1>{{ title }}</h1>
 ```
+### Using JSON or YML files
 
 Variables can also be added globally by creating an external JSON or YML file, and adding it to the `src/data` folder in your project. Let's create a file called `breakfast.yml`:
 
@@ -230,6 +232,46 @@ Panini will load in the contents of this YML file as a variable called `{{ break
 ```
 
 This code will print three `<li>`s, one for each item in the file.
+
+We can also keep our data organized by using `yml/json` objects.  In our breakfast.yml, let's create an object named `foods`.
+
+```
+foods:
+    - eggs
+    - bacon
+    - toast
+```
+
+The benifit to this will be to also have more objects in our file:
+
+```
+foods:
+    - eggs
+    - bacon
+    - toast
+
+drinks:
+	- milk
+	- orange juice
+```
+
+Now in Handlebars, we can get that data like this. ( Remember to use the file name as the first paramater )
+
+```handlebars
+<ul class="breakfast-items">
+  {{#each breakfast as |food key|}}
+    <ul>
+        {{key}}
+        {{#each food as |item|}}
+        <li>{{item}}</li>
+        {{/each}}
+    </ul>
+  {{/each}}
+</ul>
+```
+
+This will print out two `ul` tags with the name of the object ( key ) and each of their items in `li` tags beneath.
+
 
 ## Tutorials
 
